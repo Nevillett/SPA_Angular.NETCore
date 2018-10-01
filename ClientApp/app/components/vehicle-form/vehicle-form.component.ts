@@ -20,8 +20,8 @@ export class VehicleFormComponent implements OnInit {
     this.vehicleService.getMakes().subscribe(makes =>
       this.makes = makes.json());
 
-    // this.vehicleService.getFeatures().subscribe(features =>
-    //   this.features = features.json());
+    this.vehicleService.getFeatures().subscribe(features =>
+      this.features = features.json());
   }
 
   onMakeChange(){
