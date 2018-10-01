@@ -9,11 +9,11 @@ using SPA_Angular.NETCore.Persistence;
 
 namespace SPA_Angular.NETCore.Controllers
 {
-    public class FeatureController
+    public class FeaturesController
     {
         private readonly SpaDbContext context;
         private readonly IMapper mapper;
-        public FeatureController(SpaDbContext context, IMapper mapper)
+        public FeaturesController(SpaDbContext context, IMapper mapper)
         {
             this.mapper = mapper;
             this.context = context;
