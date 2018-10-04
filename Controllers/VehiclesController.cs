@@ -13,12 +13,12 @@ namespace SPA_Angular.NETCore.Controllers
     public class VehiclesController : Controller
     {
         private readonly IMapper mapper;
-        private readonly SpaDbContext context;
         private readonly IVehicleRepository repository;
-        public VehiclesController(IMapper mapper, SpaDbContext context, IVehicleRepository repository)
+        private readonly IUnitOfWork unitOfWork;
+        public VehiclesController(IMapper mapper, IVehicleRepository repository, IUnitOfWork unitOfWork)
         {
+            this.unitOfWork = unitOfWork;
             this.repository = repository;
-            this.context = context;
             this.mapper = mapper;
         }
         [HttpPost]
@@ -30,7 +30,7 @@ namespace SPA_Angular.NETCore.Controllers
             var vehicle = mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource);
             vehicle.LastUpdate = DateTime.Now;
             repository.Add(vehicle);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             vehicle = await repository.GetVehicle(vehicle.Id);
             var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
@@ -50,7 +50,7 @@ namespace SPA_Angular.NETCore.Controllers
             mapper.Map<SaveVehicleResource, Vehicle>(vehicleResource, vehicle);
             vehicle.LastUpdate = DateTime.Now;
 
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
             return Ok(result);
@@ -63,7 +63,7 @@ namespace SPA_Angular.NETCore.Controllers
             if (vehicle == null)
                 return NotFound();
             repository.Remove(vehicle);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
             return Ok(id);
         }
 

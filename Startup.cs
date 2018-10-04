@@ -27,6 +27,8 @@ namespace SPA_Angular.NETCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IVehicleRepository, VehicleRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            
             services.AddAutoMapper();
             services.AddDbContext<SpaDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddMvc();
