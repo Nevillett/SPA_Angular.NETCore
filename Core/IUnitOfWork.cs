@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace SPA_Angular.NETCore.Persistence
+namespace SPA_Angular.NETCore.Core
 {
     public interface IUnitOfWork
     {

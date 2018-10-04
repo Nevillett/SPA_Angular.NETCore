@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using SPA_Angular.NETCore.Models;
+using SPA_Angular.NETCore.Core;
+using SPA_Angular.NETCore.Core.Models;
 
 namespace SPA_Angular.NETCore.Persistence
 {

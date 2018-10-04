@@ -4,7 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SPA_Angular.NETCore.Controllers.Resources;
-using SPA_Angular.NETCore.Models;
+using SPA_Angular.NETCore.Core.Models;
 using SPA_Angular.NETCore.Persistence;
 
 namespace SPA_Angular.NETCore.Controllers

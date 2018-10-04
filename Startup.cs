@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SPA_Angular.NETCore.Persistence;
 using AutoMapper;
+using SPA_Angular.NETCore.Core;
 // using Microsoft.EntityFrameworkCore;
 
 namespace SPA_Angular.NETCore

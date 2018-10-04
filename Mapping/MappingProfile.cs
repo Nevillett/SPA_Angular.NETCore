@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using SPA_Angular.NETCore.Controllers.Resources;
-using SPA_Angular.NETCore.Models;
+using SPA_Angular.NETCore.Core.Models;
 
 namespace SPA_Angular.NETCore.Mapping
 {

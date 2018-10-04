@@ -4,8 +4,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SPA_Angular.NETCore.Controllers.Resources;
-using SPA_Angular.NETCore.Models;
-using SPA_Angular.NETCore.Persistence;
+using SPA_Angular.NETCore.Core;
+using SPA_Angular.NETCore.Core.Models;
 
 namespace SPA_Angular.NETCore.Controllers
 {
@@ -52,6 +52,7 @@ namespace SPA_Angular.NETCore.Controllers
 
             await unitOfWork.CompleteAsync();
 
+            vehicle = await repository.GetVehicle(vehicle.Id);
             var result = mapper.Map<Vehicle, VehicleResource>(vehicle);
             return Ok(result);
         }
