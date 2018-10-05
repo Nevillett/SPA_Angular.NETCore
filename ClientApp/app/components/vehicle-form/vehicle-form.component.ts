@@ -10,7 +10,6 @@ export class VehicleFormComponent implements OnInit {
   makes: any;
   models: any;
   features: any;
-  vehicleMake: any;
   vehicle: any = {};
 
   constructor(
@@ -25,8 +24,9 @@ export class VehicleFormComponent implements OnInit {
   }
 
   onMakeChange(){
-    var selectedMake = this.makes.find((m: any) => m.id == this.vehicleMake);
+    var selectedMake = this.makes.find((m: any) => m.id == this.vehicle.makeId);
     this.models = selectedMake ? selectedMake.models : [];
+    delete this.vehicle.modelId;
   }
 
 }
