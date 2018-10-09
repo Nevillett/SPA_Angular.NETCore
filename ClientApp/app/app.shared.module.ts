@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
+import { AppErrorHandler } from './app.error-handler';
+import { ErrorHandler } from '@angular/core';
 import { ToastyModule } from 'ng2-toasty';
 import { VehicleService } from './services/vehicle.service';
 import { AppComponent } from './components/app/app.component';
@@ -37,6 +39,7 @@ import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.com
         ])
     ],
     providers: [
+        { provide: ErrorHandler, useClass: AppErrorHandler }, //use custom class instead of angular origin class
         VehicleService
     ]
 })
