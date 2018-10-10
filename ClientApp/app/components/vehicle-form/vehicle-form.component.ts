@@ -1,3 +1,4 @@
+import { SaveVehicle, Vehicle } from './../../models/vehicle';
 import { Observable } from 'rxjs/Observable';
 import { ToastyService } from 'ng2-toasty';
 import { VehicleService } from '../../services/vehicle.service';
@@ -14,9 +15,17 @@ export class VehicleFormComponent implements OnInit {
   makes: any;
   models: any;
   features: any;
-  vehicle: any = {
+  vehicle: SaveVehicle = {
+    id: 0,
+    modelId: 0,
+    makeId: 0,
+    isRegistered: false,
     features: [],
-    contact: {}
+    contact: {
+      name: '',
+      phone: '',
+      email:''
+    }
   };
 
   constructor(
@@ -42,16 +51,31 @@ export class VehicleFormComponent implements OnInit {
       this.features = data[1].json();
 
       if (this.vehicle.id)
-        this,this.vehicle = data[2].json();
+        this.setVehicle(data[2].json());
+        this.populateModels();
     }, err => {
       if (err.status == 404)
           this.router.navigate(['/home']);
     });  
   }
 
-  onMakeChange(){
+  private setVehicle(v: Vehicle) {
+    this.vehicle.id = v.id;
+    this.vehicle.makeId = v.make.id;
+    this.vehicle.modelId = v.model.id;
+    this.vehicle.isRegistered = v.isRegistered;
+    this.vehicle.contact = v.contact;
+    v.features.forEach(f =>  {this.vehicle.features.push(f.id)});
+    // this.vehicle.features = 
+  }
+
+  private populateModels() {
     var selectedMake = this.makes.find((m: any) => m.id == this.vehicle.makeId);
     this.models = selectedMake ? selectedMake.models : [];
+  }
+
+  onMakeChange(){
+    this.populateModels();
     delete this.vehicle.modelId;
   }
   
