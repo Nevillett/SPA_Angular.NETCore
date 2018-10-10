@@ -9,7 +9,7 @@ export class AppErrorHandler implements ErrorHandler {
     }
 
     handleError(error: any): void {
-        if (isDevMode())
+        if (isDevMode()) //logging only in production
             Raven.captureException(error.originalError || error);
         else
             throw error;
