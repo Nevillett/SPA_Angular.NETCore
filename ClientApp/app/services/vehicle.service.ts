@@ -1,3 +1,4 @@
+import { SaveVehicle } from './../models/vehicle';
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
@@ -24,5 +25,9 @@ export class VehicleService {
 
   getVehicle(id) {
     return this.http.get('api/vehicles/' + id)
+  }
+
+  updateVehicle(vehicle: SaveVehicle): Observable<any> {
+    return this.http.put('api/vehicles/' + vehicle.id, vehicle)
   }
 }

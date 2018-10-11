@@ -33,7 +33,7 @@
       <input type="checkbox" id="feature{{ f.id }}" (change)="OnFeatureToggle(f.id, $event)" [checked]="vehicle.features.includes(f.id)"> {{ f.name }}
     </label>
   </div>
-  <h2>Contact</h2>
+  <h2>Contact</h2> 
   <div class="form-group">
     <label for="contactName">Name</label>
     <input id="contactName" type="text" class="form-control" [(ngModel)]="vehicle.contact.name" name="ContactName" required #contactName='ngModel'>
