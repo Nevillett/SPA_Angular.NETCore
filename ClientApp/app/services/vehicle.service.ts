@@ -30,4 +30,8 @@ export class VehicleService {
   updateVehicle(vehicle: SaveVehicle): Observable<any> {
     return this.http.put('api/vehicles/' + vehicle.id, vehicle)
   }
+
+  delete(id) {
+    return this.http.delete('api/vehicles/' + id)
+  }
 }
