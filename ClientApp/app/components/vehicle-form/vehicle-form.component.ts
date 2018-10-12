@@ -33,12 +33,16 @@ export class VehicleFormComponent implements OnInit {
     private router: Router,
     private vehicleService: VehicleService,
     private toastyService: ToastyService ) { 
-      this.route.params.subscribe(p => {
-        this.vehicle.id = +p['id'];
-      });
+      // this.route.params.subscribe(p => {
+      //   this.vehicle.id = +p['id'];
+      // });
     }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      this.vehicle.id = +params['id'];
+    });
+
     var sources = [
       this.vehicleService.getMakes(),
       this.vehicleService.getFeatures()
@@ -65,8 +69,9 @@ export class VehicleFormComponent implements OnInit {
     this.vehicle.modelId = v.model.id;
     this.vehicle.isRegistered = v.isRegistered;
     this.vehicle.contact = v.contact;
-    v.features.forEach(f =>  {this.vehicle.features.push(f.id)});
-    // this.vehicle.features = 
+    //v.features.forEach(f =>  {this.vehicle.features.push(f.id)});
+    //better way
+    this.vehicle.features = v.features.map(f => f.id);
   }
 
   private populateModels() {

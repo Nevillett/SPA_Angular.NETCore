@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using SPA_Angular.NETCore.Core.Models;
 
@@ -9,5 +10,6 @@ namespace SPA_Angular.NETCore.Core
          void Add(Vehicle vehicle);
          void Remove(Vehicle vehicle);
 
+        Task<IEnumerable<Vehicle>> GetVehicles();
     }
 }

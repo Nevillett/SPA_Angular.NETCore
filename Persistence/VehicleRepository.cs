@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SPA_Angular.NETCore.Core;
@@ -34,6 +35,16 @@ namespace SPA_Angular.NETCore.Persistence
         public void Remove(Vehicle vehicle)
         {
             context.Remove(vehicle);
+        }
+
+        public async Task<IEnumerable<Vehicle>> GetVehicles()
+        {
+            return await context.Vehicles
+            .Include(v => v.Model)
+                .ThenInclude(md => md.Make)
+            .Include(v => v.Features)
+                .ThenInclude(vf => vf.Feature)
+            .ToListAsync();
         }
     }
 }
