@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SPA_Angular.NETCore.Core;
 using SPA_Angular.NETCore.Core.Models;
+using System.Linq;
 
 namespace SPA_Angular.NETCore.Persistence
 {
@@ -37,14 +38,26 @@ namespace SPA_Angular.NETCore.Persistence
             context.Remove(vehicle);
         }
 
-        public async Task<IEnumerable<Vehicle>> GetVehicles()
+        public async Task<IEnumerable<Vehicle>> GetVehicles(Filter filter)
         {
-            return await context.Vehicles
-            .Include(v => v.Model)
-                .ThenInclude(md => md.Make)
-            .Include(v => v.Features)
-                .ThenInclude(vf => vf.Feature)
-            .ToListAsync();
+            // return await context.Vehicles
+            // .Include(v => v.Model)
+            //     .ThenInclude(md => md.Make)
+            // .Include(v => v.Features)
+            //     .ThenInclude(vf => vf.Feature)
+            // .ToListAsync();
+
+            //filter, using dynamically query
+            var query = context.Vehicles
+                        .Include(v => v.Model)
+                            .ThenInclude(md => md.Make)
+                        .Include(v => v.Features)
+                            .ThenInclude(vf => vf.Feature)
+                        .AsQueryable();
+
+            if (filter.MakeId.HasValue)
+                query = query.Where(v => v.Model.MakeId == filter.MakeId.Value);
+            return await query.ToListAsync();
         }
     }
 }
