@@ -8,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 //   providedIn: 'root'
 // })
 export class VehicleService {
-
+  private readonly vehicleEndpoint = '/api/vehicles';
   constructor(private http : Http) { }
 
   getMakes() {
@@ -35,7 +35,22 @@ export class VehicleService {
     return this.http.delete('api/vehicles/' + id)
   }
 
-  getVehicles() {
-    return this.http.get('api/vehicles')
+  //getVehicles() {
+  //  return this.http.get('api/vehicles')
+  //}
+
+  getVehicles(filter) {
+    return this.http.get(this.vehicleEndpoint + '?' + this.toQueryString(filter))
+  }
+
+  toQueryString(obj) {
+    // encodeURIComponent(); api configure like api/vehicles/?makeId=1
+    var parts : Array<any> = [];
+    for (var property in obj) {
+      var value = obj[property]; //obj.proterty
+      if (value != null && value != undefined)
+        parts.push(encodeURIComponent(property) + '=' + encodeURIComponent(value)); 
+    }
+    return parts.join('&');
   }
 }
