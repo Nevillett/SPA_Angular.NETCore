@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using SPA_Angular.NETCore.Core;
 using SPA_Angular.NETCore.Core.Models;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace SPA_Angular.NETCore.Persistence
 {
@@ -38,7 +39,7 @@ namespace SPA_Angular.NETCore.Persistence
             context.Remove(vehicle);
         }
 
-        public async Task<IEnumerable<Vehicle>> GetVehicles(Filter filter)
+        public async Task<IEnumerable<Vehicle>> GetVehicles(VehicleQuery queryObj)
         {
             // return await context.Vehicles
             // .Include(v => v.Model)
@@ -55,8 +56,15 @@ namespace SPA_Angular.NETCore.Persistence
                             .ThenInclude(vf => vf.Feature)
                         .AsQueryable();
 
-            if (filter.MakeId.HasValue)
-                query = query.Where(v => v.Model.MakeId == filter.MakeId.Value);
+            if (queryObj.MakeId.HasValue)
+                query = query.Where(v => v.Model.MakeId == queryObj.MakeId.Value);
+            // sorting     
+            if (queryObj.SortBy == "make")
+               query = (queryObj.IsSortAscending) ? query.OrderBy(v => v.Model.Make.Name) : query.OrderByDescending(v => v.Model.Make.Name);
+   
+            //Expression<Func<Vehicle, Object>>
+
+        
             return await query.ToListAsync();
         }
     }
