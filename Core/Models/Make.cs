@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace SPA_Angular.NETCore.Models
+namespace SPA_Angular.NETCore.Core.Models
 {
     public class Make
     {

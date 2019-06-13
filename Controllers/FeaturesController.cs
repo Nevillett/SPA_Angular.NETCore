@@ -9,20 +9,21 @@ using SPA_Angular.NETCore.Persistence;
 
 namespace SPA_Angular.NETCore.Controllers
 {
-    public class MakesController : Controller
+    public class FeaturesController
     {
         private readonly SpaDbContext context;
         private readonly IMapper mapper;
-        public MakesController(SpaDbContext context, IMapper mapper)
+        public FeaturesController(SpaDbContext context, IMapper mapper)
         {
             this.mapper = mapper;
             this.context = context;
         }
-        [HttpGet("api/makes")]
-        public async Task<IEnumerable<MakeResource>> GetMakes()
+
+        [HttpGet("/api/features")]
+        public async Task<IEnumerable<KeyValuePairResource>> GetFeatures()
         {
-            var makes = await context.Makes.Include(m => m.Models).ToListAsync();
-            return mapper.Map<List<Make>, List<MakeResource>>(makes);
+            var features = await context.Features.ToListAsync();
+            return mapper.Map<List<Feature>, List<KeyValuePairResource>>(features);
         }
     }
 }
